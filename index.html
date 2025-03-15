@@ -8,7 +8,7 @@
   <style>
     /* General Styling */
     body {
-      background-color: black;
+      background-color: #000;
       color: #00FF00;
       font-family: "Courier New", monospace;
       margin: 0;
@@ -16,9 +16,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       height: 100vh;
       position: relative;
+      padding-top: 50px;
     }
 
     /* Matrix Effect */
@@ -33,33 +34,35 @@
 
     /* Terminal Box */
     .terminal-container {
-      width: 85%;
-      max-width: 900px;
-      border: 2px solid lime;
-      background: black;
-      box-shadow: 0 0 15px lime;
-      padding: 10px;
-      overflow: hidden;
+      width: 90%;
+      max-width: 1000px;
+      background: #111;
+      border: 3px solid #00FF00;
+      box-shadow: 0 0 15px #00FF00;
+      padding: 15px;
       position: relative;
+      margin-bottom: 30px;
+      border-radius: 5px;
     }
 
-    /* Terminal Header (SSH Style) */
+    /* Terminal Header */
     .terminal-header {
       background: #222;
-      color: lime;
-      padding: 5px 10px;
-      font-size: 14px;
-      border-bottom: 2px solid lime;
+      color: #00FF00;
+      padding: 8px 15px;
+      font-size: 16px;
+      border-bottom: 3px solid #00FF00;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-radius: 5px 5px 0 0;
     }
 
     .terminal-header span {
-      color: #FF4444; /* Username color */
+      color: #FF4444;
     }
 
-    /* Close Buttons for Realism */
+    /* Terminal Buttons for Realism */
     .terminal-buttons {
       display: flex;
       gap: 5px;
@@ -80,10 +83,14 @@
     .terminal {
       padding: 15px;
       text-align: left;
+      font-size: 16px;
       max-height: 400px;
       overflow-y: auto;
       white-space: nowrap;
       scroll-behavior: smooth;
+      background: #000;
+      color: #00FF00;
+      border-radius: 0 0 5px 5px;
     }
 
     /* Typing Effect */
@@ -91,7 +98,7 @@
       display: inline-block;
       overflow: hidden;
       white-space: nowrap;
-      border-right: 2px solid lime;
+      border-right: 2px solid #00FF00;
       animation: typing 2s steps(30, end), blink 0.75s step-end infinite;
     }
 
@@ -104,9 +111,41 @@
       50% { border-color: transparent; }
     }
 
+    /* Project List Styling */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .project-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .project-list li {
+      font-size: 16px;
+    }
+
+    .project-content {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out;
+      margin-top: 10px;
+      padding: 5px;
+      padding-left: 10px;
+      border-left: 2px solid #00FF00;
+    }
+
+    .project-content.show {
+      max-height: 500px;
+      opacity: 1;
+    }
+
     /* Links */
     a {
-      color: lime;
+      color: #00FF00;
       text-decoration: none;
       cursor: pointer;
     }
@@ -115,29 +154,13 @@
       text-decoration: underline;
     }
 
-    /* Project Content */
-    .project-content {
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out;
-      margin-top: 10px;
-      padding: 5px;
-      border-left: 2px solid lime;
-      padding-left: 10px;
-    }
-
-    .project-content.show {
-      max-height: 500px;
-      opacity: 1;
-    }
-
     /* Mobile Optimization */
     @media screen and (max-width: 600px) {
       .terminal-container {
         width: 95%;
       }
       .terminal-header {
-        font-size: 12px;
+        font-size: 14px;
       }
     }
   </style>
@@ -188,7 +211,7 @@
     // Function to reveal the project list after typing
     function showProjectList() {
       const projectList = document.querySelector(".project-list");
-      projectList.style.display = "block";
+      projectList.style.display = "flex";
     }
 
     document.addEventListener("DOMContentLoaded", startTypingAnimation);
@@ -246,31 +269,47 @@
     <div class="terminal">
       <!-- Typing effect will populate this -->
     </div>
+  </div>
 
-    <!-- Projects List - Initially hidden -->
-    <div class="project-list" style="display:none;">
-      <ul>
-        <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
-        <div id="project1" class="project-content">
-          <li>><a href="#">Link To Report</a></li>
-          <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
-        </div>
+  <!-- Projects List - Initially hidden -->
+  <div class="project-list" style="display:none;">
+    <ul>
+      <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
+      <div id="project1" class="project-content">
+        <li>><a href="#">Link To Report</a></li>
+        <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
+      </div>
 
-        <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
-        <div id="project2" class="project-content">
-          <li>><a href="#">Link To Report</a></li>
-          <p>Description: A local area network setup for hands-on networking practice.</p>
-        </div>
+      <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
+      <div id="project2" class="project-content">
+        <li>><a href="#">Link To Report</a></li>
+        <p>Description: A local area network setup for hands-on networking practice.</p>
+      </div>
 
-        <li>> <a onclick="toggleProject('project3')">Packit_Fiend</a></li>
-        <div id="project3" class="project-content">
-          <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
-          <p>Description: A Python-based pen-testing tool utilizing Scapy and socket for network scanning.</p>
-        </div>
+      <li>> <a onclick="toggleProject('project3')">Packit_Fiend</a></li>
+      <div id="project3" class="project-content">
+        <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
+        <p>Description: A Python-based pen-testing tool utilizing Scapy and socket for network scanning.</p>
+      </div>
 
-        <!-- Add your remaining projects here -->
-      </ul>
-    </div>
+      <li>> <a onclick="toggleProject('project4')">DFA Minimization Demo</a></li>
+      <div id="project4" class="project-content">
+        <li>><a href="https://youtu.be/rdFdbVxSlLg">Link To Demo</a></li>
+        <p>Description: Demonstrating the process of DFA minimization in automata theory.</p>
+      </div>
+
+      <li>> <a onclick="toggleProject('project5')">Regular Expression to DFA Conversion Demo</a></li>
+      <div id="project5" class="project-content">
+        <li>><a href="https://youtu.be/P9a6l90iats">Link To Demo</a></li>
+        <p>Description: Converting a regular expression into a deterministic finite automaton.</p>
+      </div>
+
+      <li>> <a onclick="toggleProject('project6')">Packit_Fiend</a></li>
+      <div id="project6" class="project-content">
+        <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
+        <p>Description: A Python-based pen-testing tool using Scapy for advanced network scanning.</p>
+      </div>
+    </ul>
   </div>
 
 </body>

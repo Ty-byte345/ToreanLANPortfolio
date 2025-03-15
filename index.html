@@ -44,22 +44,44 @@
       margin: 0;
     }
 
-    /* Terminal Box */
-    .terminal {
+    /* Terminal Shell Box */
+    .terminal-container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 80%;
-      max-width: 800px;
-      height: 60vh; /* Ensures it stays within screen */
-      border: 2px solid green;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      border-radius: 8px;
-      box-shadow: 0px 0px 10px green;
-      padding: 20px;
-      overflow-y: auto; /* Allows scrolling inside terminal */
+      max-width: 900px;
+      height: 65vh;
+      border-radius: 5px;
+      box-shadow: 0 0 20px lime;
+      background: rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Terminal Title Bar */
+    .terminal-header {
+      background: #222;
+      color: lime;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 14px;
+      border-bottom: 2px solid lime;
+    }
+
+    .terminal-header span {
+      color: #FF4444; /* Red for the user (root) */
+    }
+
+    /* Terminal Content */
+    .terminal {
+      padding: 15px;
+      text-align: left;
+      flex-grow: 1;
+      overflow-y: auto;
+      white-space: nowrap;
     }
 
     /* Links */
@@ -73,7 +95,7 @@
       text-decoration: underline;
     }
 
-    /* Project Content with Animation */
+    /* Project Content Animation */
     .project-content {
       overflow: hidden;
       max-height: 0;
@@ -81,7 +103,8 @@
       transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out;
       margin-top: 10px;
       padding: 5px;
-      border-top: 1px dashed green;
+      border-left: 2px solid lime;
+      padding-left: 10px;
     }
 
     .project-content.show {
@@ -89,12 +112,21 @@
       opacity: 1;
     }
 
+    /* Blinking Cursor */
+    .blink {
+      animation: blink-animation 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink-animation {
+      50% { opacity: 0; }
+    }
+
     /* Mobile Optimization */
     @media screen and (max-width: 600px) {
       h1 {
         font-size: 1.5em;
       }
-      .terminal {
+      .terminal-container {
         width: 95%;
         height: 70vh;
       }
@@ -118,48 +150,53 @@
     <h1>Welcome to Torean's LAN Server</h1>
   </div>
 
-  <!-- Terminal Section -->
-  <div class="terminal">
-    <p>> Hello, visitor! This is my project portfolio.</p>
-    <p>> Here are some of my projects:</p>
-    <ul>
-      <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
-      <div id="project1" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf">Link To Report</a></li>
-        <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
-      </div>
+  <!-- SSH-Like Terminal Box -->
+  <div class="terminal-container">
+    <div class="terminal-header">
+      <span>root@ToreanLAN</span>:~$
+    </div>
+    <div class="terminal">
+      <p>> Hello, visitor! This is my project portfolio.</p>
+      <p>> Here are some of my projects:</p>
+      <ul>
+        <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
+        <div id="project1" class="project-content">
+          <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf">Link To Report</a></li>
+          <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
+        </div>
 
-      <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
-      <div id="project2" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf">Link To Report</a></li>
-        <p>Description: A local area network setup for hands-on networking practice.</p>
-      </div>
+        <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
+        <div id="project2" class="project-content">
+          <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf">Link To Report</a></li>
+          <p>Description: A local area network setup for hands-on networking practice.</p>
+        </div>
 
-      <li>> <a onclick="toggleProject('project3')">VPN Configuration for Secure Remote Access</a></li>
-      <div id="project3" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf">Link To Report</a></li>
-        <p>Description: Setting up a secure VPN for remote connectivity.</p>
-      </div>
+        <li>> <a onclick="toggleProject('project3')">VPN Configuration for Secure Remote Access</a></li>
+        <div id="project3" class="project-content">
+          <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf">Link To Report</a></li>
+          <p>Description: Setting up a secure VPN for remote connectivity.</p>
+        </div>
 
-      <li>> <a onclick="toggleProject('project4')">DFA Minimization Demo</a></li>
-      <div id="project4" class="project-content">
-        <li>><a href="https://youtu.be/rdFdbVxSlLg">Link To Demo</a></li>
-        <p>Description: Demonstrating the process of DFA minimization in automata theory.</p>
-      </div>
+        <li>> <a onclick="toggleProject('project4')">DFA Minimization Demo</a></li>
+        <div id="project4" class="project-content">
+          <li>><a href="https://youtu.be/rdFdbVxSlLg">Link To Demo</a></li>
+          <p>Description: Demonstrating the process of DFA minimization in automata theory.</p>
+        </div>
 
-      <li>> <a onclick="toggleProject('project5')">Regular Expression to DFA Conversion Demo</a></li>
-      <div id="project5" class="project-content">
-        <li>><a href="https://youtu.be/P9a6l90iats">Link To Demo</a></li>
-        <p>Description: Converting a regular expression into a deterministic finite automaton.</p>
-      </div>
+        <li>> <a onclick="toggleProject('project5')">Regular Expression to DFA Conversion Demo</a></li>
+        <div id="project5" class="project-content">
+          <li>><a href="https://youtu.be/P9a6l90iats">Link To Demo</a></li>
+          <p>Description: Converting a regular expression into a deterministic finite automaton.</p>
+        </div>
 
-      <li>> <a onclick="toggleProject('project6')">Packit_Fiend</a></li>
-      <div id="project6" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
-        <p>Description: A pen-testing tool built with Python, utilizing Scapy and socket libraries.</p>
-      </div>
-    </ul>
-    <p>> More coming soon...<span class="blink">_</span></p>
+        <li>> <a onclick="toggleProject('project6')">Packit_Fiend</a></li>
+        <div id="project6" class="project-content">
+          <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
+          <p>Description: A pen-testing tool built with Python, utilizing Scapy and socket libraries.</p>
+        </div>
+      </ul>
+      <p>> More coming soon...<span class="blink">_</span></p>
+    </div>
   </div>
 
   <!-- Matrix Rain Effect -->
@@ -182,7 +219,7 @@
     var drops = Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Adjusted for a smoother fade effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       ctx.fillStyle = "#0F0";

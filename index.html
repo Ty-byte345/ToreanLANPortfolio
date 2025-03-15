@@ -6,8 +6,8 @@
   <title>Torean's Project Portfolio</title>
   <style>
     body {
-      background-color: black;
-      color: green;
+      background-color: #111;
+      color: #0F0;
       font-family: "Courier New", monospace;
       text-align: center;
       padding: 20px;
@@ -25,13 +25,12 @@
       z-index: -1;
     }
 
-    /* Title (Always on Top) */
+    /* Title */
     h1 {
-      position: relative;
-      z-index: 2;
-      font-size: 2em;
+      font-size: 2.5em;
+      margin-bottom: 20px;
       text-shadow: 0px 0px 10px lime;
-      margin-bottom: 10px;
+      z-index: 2;
     }
 
     /* Terminal Styling */
@@ -39,16 +38,17 @@
       position: relative;
       z-index: 1;
       border: 2px solid green;
-      padding: 20px;
+      padding: 30px;
       display: inline-block;
       text-align: left;
       width: 80%;
-      max-width: 800px;
-      margin-top: 20px;
+      max-width: 900px;
+      margin-top: 50px;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(5px);
-      border-radius: 8px;
-      box-shadow: 0px 0px 10px green;
+      border-radius: 10px;
+      box-shadow: 0px 0px 20px green;
+      transition: all 0.3s ease-in-out;
     }
 
     a {
@@ -59,6 +59,8 @@
 
     a:hover {
       text-decoration: underline;
+      transform: scale(1.05);
+      transition: transform 0.2s;
     }
 
     .blink {
@@ -71,22 +73,32 @@
 
     /* Project Content (Collapsible with Animation) */
     .project-content {
-      overflow: hidden;
-      max-height: 0;
-      transition: max-height 0.5s ease-in-out;
+      display: none;
       margin-top: 10px;
       padding: 5px;
       border-top: 1px dashed green;
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .project-content a {
+      color: #0F0;
+      font-weight: bold;
+    }
+
+    .project-item:hover {
+      background-color: rgba(0, 255, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     /* Responsive Styling */
     @media screen and (max-width: 600px) {
       h1 {
-        font-size: 1.5em;
+        font-size: 1.8em;
       }
       .terminal {
-        width: 95%;
-        padding: 15px;
+        width: 90%;
+        padding: 20px;
       }
     }
   </style>
@@ -94,11 +106,8 @@
   <script>
     function toggleProject(id) {
       var content = document.getElementById(id);
-      if (content.style.maxHeight === "0px" || content.style.maxHeight === "") {
-        content.style.maxHeight = content.scrollHeight + "px";
-      } else {
-        content.style.maxHeight = "0px";
-      }
+      var isVisible = content.style.display === "block";
+      content.style.display = isVisible ? "none" : "block";
     }
   </script>
 </head>
@@ -106,47 +115,51 @@
   <!-- Canvas for Matrix Effect -->
   <canvas id="matrix"></canvas>
 
+  <!-- Page Title -->
   <h1>Welcome to Torean's LAN Server</h1>
   
+  <!-- Terminal Box -->
   <div class="terminal">
     <p>> Hello, visitor! This is my project portfolio.</p>
     <p>> Here are some of my projects:</p>
     <ul>
-      <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
+      <li class="project-item" onclick="toggleProject('project1')">> Ubuntu Linux Packet Sniffing & Spoofing</li>
       <div id="project1" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf">Link To Report</a></li>
         <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
+        <a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf" target="_blank">Link to Report</a>
       </div>
 
-      <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
+      <li class="project-item" onclick="toggleProject('project2')">> LAN Network Home Lab</li>
       <div id="project2" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf">Link To Report</a></li>
         <p>Description: A local area network setup for hands-on networking practice.</p>
+        <a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf" target="_blank">Link to Report</a>
       </div>
 
-      <li>> <a onclick="toggleProject('project3')">VPN Configuration for Secure Remote Access</a></li>
+      <li class="project-item" onclick="toggleProject('project3')">> VPN Configuration for Secure Remote Access</li>
       <div id="project3" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf">Link To Report</a></li>
         <p>Description: Setting up a secure VPN for remote connectivity.</p>
+        <a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf" target="_blank">Link to Report</a>
       </div>
 
-      <li>> <a onclick="toggleProject('project4')">DFA Minimization Demo</a></li>
+      <li class="project-item" onclick="toggleProject('project4')">> DFA Minimization Demo</li>
       <div id="project4" class="project-content">
-        <li>><a href="https://youtu.be/rdFdbVxSlLg">Link To Demo</a></li>
         <p>Description: Demonstrating the process of DFA minimization in automata theory.</p>
+        <a href="https://youtu.be/rdFdbVxSlLg" target="_blank">Link to Demo</a>
       </div>
 
-      <li>> <a onclick="toggleProject('project5')">Regular Expression to DFA Conversion Demo</a></li>
+      <li class="project-item" onclick="toggleProject('project5')">> Regular Expression to DFA Conversion Demo</li>
       <div id="project5" class="project-content">
-        <li>><a href="https://youtu.be/P9a6l90iats">Link To Demo</a></li>
         <p>Description: Converting a regular expression into a deterministic finite automaton.</p>
+        <a href="https://youtu.be/P9a6l90iats" target="_blank">Link to Demo</a>
       </div>
-      <li>> <a onclick="toggleProject('project6')">Packit_Fiend</a></li>
+
+      <li class="project-item" onclick="toggleProject('project6')">> Packit_Fiend</li>
       <div id="project6" class="project-content">
-        <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
         <p>Description: A pen-testing tool built with Python, utilizing Scapy and socket libraries.</p>
+        <a href="https://github.com/Ty-byte345/Packit_Fiend" target="_blank">GitHub</a>
       </div>
     </ul>
+
     <p>> More coming soon...<span class="blink">_</span></p>
   </div>
 
@@ -170,7 +183,7 @@
     var drops = Array(columns).fill(1);
 
     function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; // Adjusted for a smoother fade effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       ctx.fillStyle = "#0F0";

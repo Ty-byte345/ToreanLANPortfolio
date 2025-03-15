@@ -12,13 +12,21 @@
       text-align: center;
       padding: 20px;
       margin: 0;
+      overflow: hidden;
     }
     /* Canvas styles for Matrix background */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
+    }
+    /* Ensure content stays in the foreground */
+    h1, .terminal {
+      position: relative;
+      z-index: 1;
     }
     .terminal {
       border: 2px solid green;
@@ -28,6 +36,7 @@
       width: 80%;
       max-width: 800px;
       margin-top: 20px;
+      background-color: rgba(0, 0, 0, 0.8); /* Slightly transparent background for better readability */
     }
     a {
       color: lime;
@@ -48,12 +57,6 @@
       margin-top: 20px;
       padding: 10px;
       border-top: 1px dashed green;
-    }
-    .project-image {
-      width: 100%;
-      max-width: 400px;
-      margin-top: 10px;
-      border: 1px solid green;
     }
   </style>
   <script>
@@ -115,7 +118,6 @@
     var canvas = document.getElementById("matrix");
     var ctx = canvas.getContext("2d");
 
-    // Resize canvas to full screen
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -123,30 +125,24 @@
     resizeCanvas();
     window.onresize = resizeCanvas;
 
-    // Characters for the Matrix effect
     var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
     letters = letters.split("");
 
     var fontSize = 16;
-    var columns = canvas.width / fontSize; // number of columns for the rain
-    var drops = [];
-    for (var x = 0; x < columns; x++) {
-      drops[x] = 1; // starting y-coordinate for each drop
-    }
+    var columns = Math.floor(canvas.width / fontSize);
+    var drops = Array(columns).fill(1);
 
     function draw() {
-      // Translucent background to create trail effect
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "#0F0"; // Green text for Matrix effect
+      
+      ctx.fillStyle = "#0F0";
       ctx.font = fontSize + "px monospace";
 
       for (var i = 0; i < drops.length; i++) {
         var text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Reset drop randomly when it reaches the bottom
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
@@ -154,7 +150,6 @@
       }
     }
 
-    // Draw the effect every 33 milliseconds
     setInterval(draw, 33);
   </script>
 </body>

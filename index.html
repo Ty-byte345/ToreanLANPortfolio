@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Torean's SSH Terminal</title>
+  <title>Torean's Project Portfolio</title>
 
   <style>
-    /* General Terminal Styling */
+    /* General Styling */
     body {
       background-color: black;
       color: #00FF00;
@@ -15,40 +15,93 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
+      position: relative;
     }
 
-    /* Full-Screen Terminal Shell */
-    .terminal-container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
+    /* Matrix Effect */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      box-shadow: inset 0 0 20px #00FF00;
-      overflow: hidden;
+      height: 100%;
+      z-index: -1;
     }
 
-    /* Terminal Title Bar */
+    /* Terminal Box */
+    .terminal-container {
+      width: 85%;
+      max-width: 900px;
+      border: 2px solid lime;
+      background: black;
+      box-shadow: 0 0 15px lime;
+      padding: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Terminal Header (SSH Style) */
     .terminal-header {
       background: #222;
       color: lime;
-      padding: 10px 15px;
+      padding: 5px 10px;
       font-size: 14px;
       border-bottom: 2px solid lime;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .terminal-header span {
-      color: #FF4444; /* Red for username */
+      color: #FF4444; /* Username color */
     }
+
+    /* Close Buttons for Realism */
+    .terminal-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .terminal-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .close-btn { background: red; }
+    .min-btn { background: yellow; }
+    .max-btn { background: green; }
 
     /* Terminal Content */
     .terminal {
-      flex-grow: 1;
       padding: 15px;
       text-align: left;
+      max-height: 400px;
       overflow-y: auto;
       white-space: nowrap;
       scroll-behavior: smooth;
+    }
+
+    /* Typing Effect */
+    .typed {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid lime;
+      animation: typing 2s steps(30, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
 
     /* Links */
@@ -57,7 +110,7 @@
       text-decoration: none;
       cursor: pointer;
     }
-    
+
     a:hover {
       text-decoration: underline;
     }
@@ -78,17 +131,11 @@
       opacity: 1;
     }
 
-    /* Blinking Cursor */
-    .blink {
-      animation: blink-animation 1s steps(2, start) infinite;
-    }
-
-    @keyframes blink-animation {
-      50% { opacity: 0; }
-    }
-
     /* Mobile Optimization */
     @media screen and (max-width: 600px) {
+      .terminal-container {
+        width: 95%;
+      }
       .terminal-header {
         font-size: 12px;
       }
@@ -100,56 +147,114 @@
       var content = document.getElementById(id);
       content.classList.toggle("show");
     }
+
+    function startTypingAnimation() {
+      const commands = [
+        "> Hello, visitor! This is my project portfolio.",
+        "> Here are some of my projects:"
+      ];
+      
+      const terminal = document.querySelector(".terminal");
+      let index = 0;
+      
+      function typeNextLine() {
+        if (index < commands.length) {
+          const p = document.createElement("p");
+          p.classList.add("typed");
+          terminal.appendChild(p);
+          
+          let i = 0;
+          function typeChar() {
+            if (i < commands[index].length) {
+              p.textContent += commands[index][i];
+              i++;
+              setTimeout(typeChar, 50);
+            } else {
+              p.classList.remove("typed");
+              index++;
+              setTimeout(typeNextLine, 500);
+            }
+          }
+          typeChar();
+        }
+      }
+      
+      setTimeout(typeNextLine, 500);
+    }
+
+    document.addEventListener("DOMContentLoaded", startTypingAnimation);
+
+    // Matrix Rain Effect
+    document.addEventListener("DOMContentLoaded", function () {
+      const canvas = document.createElement("canvas");
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+      const fontSize = 16;
+      const columns = canvas.width / fontSize;
+      const drops = Array.from({ length: columns }).fill(1);
+
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#0F0";
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(drawMatrix, 50);
+    });
   </script>
+
 </head>
 <body>
 
-  <!-- Full-Screen Terminal -->
+  <!-- Terminal Box -->
   <div class="terminal-container">
     <div class="terminal-header">
-      <span>root@ToreanLAN</span>:~$
+      <div class="terminal-buttons">
+        <div class="terminal-btn close-btn"></div>
+        <div class="terminal-btn min-btn"></div>
+        <div class="terminal-btn max-btn"></div>
+      </div>
+      <span>root@ToreanLAN:~$</span>
     </div>
+
     <div class="terminal">
-      <p>> Hello, visitor! This is my project portfolio.</p>
-      <p>> Here are some of my projects:</p>
+      <!-- Typing effect will populate this -->
       <ul>
         <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
         <div id="project1" class="project-content">
-          <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf">Link To Report</a></li>
+          <li>><a href="#">Link To Report</a></li>
           <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
         </div>
 
         <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
         <div id="project2" class="project-content">
-          <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf">Link To Report</a></li>
+          <li>><a href="#">Link To Report</a></li>
           <p>Description: A local area network setup for hands-on networking practice.</p>
         </div>
 
-        <li>> <a onclick="toggleProject('project3')">VPN Configuration for Secure Remote Access</a></li>
+        <li>> <a onclick="toggleProject('project3')">Packit_Fiend</a></li>
         <div id="project3" class="project-content">
-          <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf">Link To Report</a></li>
-          <p>Description: Setting up a secure VPN for remote connectivity.</p>
-        </div>
-
-        <li>> <a onclick="toggleProject('project4')">DFA Minimization Demo</a></li>
-        <div id="project4" class="project-content">
-          <li>><a href="https://youtu.be/rdFdbVxSlLg">Link To Demo</a></li>
-          <p>Description: Demonstrating the process of DFA minimization in automata theory.</p>
-        </div>
-
-        <li>> <a onclick="toggleProject('project5')">Regular Expression to DFA Conversion Demo</a></li>
-        <div id="project5" class="project-content">
-          <li>><a href="https://youtu.be/P9a6l90iats">Link To Demo</a></li>
-          <p>Description: Converting a regular expression into a deterministic finite automaton.</p>
-        </div>
-
-        <li>> <a onclick="toggleProject('project6')">Packit_Fiend</a></li>
-        <div id="project6" class="project-content">
           <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
-          <p>Description: A pen-testing tool built with Python, utilizing Scapy and socket libraries.</p>
+          <p>Description: A Python-based pen-testing tool utilizing Scapy and socket for network scanning.</p>
         </div>
       </ul>
-      <p>> More coming soon...<span class="blink">_</span></p>
     </div>
   </div>
 

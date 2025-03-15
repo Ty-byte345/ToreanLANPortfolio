@@ -176,10 +176,19 @@
             }
           }
           typeChar();
+        } else {
+          // After typing is done, show the projects list
+          showProjectList();
         }
       }
       
       setTimeout(typeNextLine, 500);
+    }
+
+    // Function to reveal the project list after typing
+    function showProjectList() {
+      const projectList = document.querySelector(".project-list");
+      projectList.style.display = "block";
     }
 
     document.addEventListener("DOMContentLoaded", startTypingAnimation);
@@ -236,6 +245,10 @@
 
     <div class="terminal">
       <!-- Typing effect will populate this -->
+    </div>
+
+    <!-- Projects List - Initially hidden -->
+    <div class="project-list" style="display:none;">
       <ul>
         <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
         <div id="project1" class="project-content">
@@ -254,6 +267,8 @@
           <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
           <p>Description: A Python-based pen-testing tool utilizing Scapy and socket for network scanning.</p>
         </div>
+
+        <!-- Add your remaining projects here -->
       </ul>
     </div>
   </div>

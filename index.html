@@ -93,24 +93,6 @@
       border-radius: 0 0 5px 5px;
     }
 
-    /* Typing Effect */
-    .typed {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid #00FF00;
-      animation: typing 2s steps(30, end), blink 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
     /* Project List Styling */
     .project-list {
       display: flex;
@@ -171,51 +153,6 @@
       content.classList.toggle("show");
     }
 
-    function startTypingAnimation() {
-      const commands = [
-        "> Hello, visitor! This is my project portfolio.",
-        "> Here are some of my projects:"
-      ];
-      
-      const terminal = document.querySelector(".terminal");
-      let index = 0;
-      
-      function typeNextLine() {
-        if (index < commands.length) {
-          const p = document.createElement("p");
-          p.classList.add("typed");
-          terminal.appendChild(p);
-          
-          let i = 0;
-          function typeChar() {
-            if (i < commands[index].length) {
-              p.textContent += commands[index][i];
-              i++;
-              setTimeout(typeChar, 50);
-            } else {
-              p.classList.remove("typed");
-              index++;
-              setTimeout(typeNextLine, 500);
-            }
-          }
-          typeChar();
-        } else {
-          // After typing is done, show the projects list
-          showProjectList();
-        }
-      }
-      
-      setTimeout(typeNextLine, 500);
-    }
-
-    // Function to reveal the project list after typing
-    function showProjectList() {
-      const projectList = document.querySelector(".project-list");
-      projectList.style.display = "flex";
-    }
-
-    document.addEventListener("DOMContentLoaded", startTypingAnimation);
-
     // Matrix Rain Effect
     document.addEventListener("DOMContentLoaded", function () {
       const canvas = document.createElement("canvas");
@@ -267,12 +204,13 @@
     </div>
 
     <div class="terminal">
-      <!-- Typing effect will populate this -->
+      <p>> Hello, visitor! This is my project portfolio.</p>
+      <p>> Here are some of my projects:</p>
     </div>
   </div>
 
-  <!-- Projects List - Initially hidden -->
-  <div class="project-list" style="display:none;">
+  <!-- Projects List -->
+  <div class="project-list">
     <ul>
       <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
       <div id="project1" class="project-content">

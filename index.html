@@ -3,85 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Torean's Project Portfolio</title>
+  <title>Torean's SSH Terminal</title>
 
   <style>
-    /* General Styling */
+    /* General Terminal Styling */
     body {
       background-color: black;
       color: #00FF00;
       font-family: "Courier New", monospace;
-      text-align: center;
       margin: 0;
-      overflow: hidden;
-    }
-
-    /* Matrix Background Effect */
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-    }
-
-    /* Header Styling */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 10px 0;
-      box-shadow: 0 2px 10px green;
-      z-index: 3;
-    }
-
-    h1 {
-      font-size: 2em;
-      text-shadow: 0px 0px 10px lime;
-      margin: 0;
-    }
-
-    /* Terminal Shell Box */
-    .terminal-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      max-width: 900px;
-      height: 65vh;
-      border-radius: 5px;
-      box-shadow: 0 0 20px lime;
-      background: rgba(0, 0, 0, 0.9);
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Full-Screen Terminal Shell */
+    .terminal-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      box-shadow: inset 0 0 20px #00FF00;
+      overflow: hidden;
     }
 
     /* Terminal Title Bar */
     .terminal-header {
       background: #222;
       color: lime;
-      padding: 8px 12px;
-      text-align: left;
+      padding: 10px 15px;
       font-size: 14px;
       border-bottom: 2px solid lime;
     }
 
     .terminal-header span {
-      color: #FF4444; /* Red for the user (root) */
+      color: #FF4444; /* Red for username */
     }
 
     /* Terminal Content */
     .terminal {
+      flex-grow: 1;
       padding: 15px;
       text-align: left;
-      flex-grow: 1;
       overflow-y: auto;
       white-space: nowrap;
+      scroll-behavior: smooth;
     }
 
     /* Links */
@@ -95,9 +62,8 @@
       text-decoration: underline;
     }
 
-    /* Project Content Animation */
+    /* Project Content */
     .project-content {
-      overflow: hidden;
       max-height: 0;
       opacity: 0;
       transition: max-height 0.6s ease-in-out, opacity 0.6s ease-in-out;
@@ -108,7 +74,7 @@
     }
 
     .project-content.show {
-      max-height: 300px;
+      max-height: 500px;
       opacity: 1;
     }
 
@@ -123,12 +89,8 @@
 
     /* Mobile Optimization */
     @media screen and (max-width: 600px) {
-      h1 {
-        font-size: 1.5em;
-      }
-      .terminal-container {
-        width: 95%;
-        height: 70vh;
+      .terminal-header {
+        font-size: 12px;
       }
     }
   </style>
@@ -142,15 +104,7 @@
 </head>
 <body>
 
-  <!-- Matrix Background -->
-  <canvas id="matrix"></canvas>
-
-  <!-- Fixed Header -->
-  <div class="header">
-    <h1>Welcome to Torean's LAN Server</h1>
-  </div>
-
-  <!-- SSH-Like Terminal Box -->
+  <!-- Full-Screen Terminal -->
   <div class="terminal-container">
     <div class="terminal-header">
       <span>root@ToreanLAN</span>:~$
@@ -198,46 +152,6 @@
       <p>> More coming soon...<span class="blink">_</span></p>
     </div>
   </div>
-
-  <!-- Matrix Rain Effect -->
-  <script>
-    var canvas = document.getElementById("matrix");
-    var ctx = canvas.getContext("2d");
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.onresize = resizeCanvas;
-
-    var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
-    letters = letters.split("");
-
-    var fontSize = 16;
-    var columns = Math.floor(canvas.width / fontSize);
-    var drops = Array(columns).fill(1);
-
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = "#0F0";
-      ctx.font = fontSize + "px monospace";
-
-      for (var i = 0; i < drops.length; i++) {
-        var text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-
-    setInterval(draw, 33);
-  </script>
 
 </body>
 </html>

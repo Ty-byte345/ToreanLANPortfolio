@@ -162,12 +162,12 @@
         case "projects":
           output.innerHTML += "<p>> Projects:</p>";
           output.innerHTML += "<ul>";
-          output.innerHTML += "<li>> <a href='#' onclick='alert(\"Ubuntu Linux Packet Sniffing & Spoofing\")'>Ubuntu Linux Packet Sniffing & Spoofing</a></li>";
-          output.innerHTML += "<li>> <a href='#' onclick='alert(\"LAN Network Home Lab\")'>LAN Network Home Lab</a></li>";
-          output.innerHTML += "<li>> <a href='#' onclick='alert(\"VPN Configuration for Secure Remote Access\")'>VPN Configuration for Secure Remote Access</a></li>";
-          output.innerHTML += "<li>> <a href='#' onclick='alert(\"DFA Minimization Demo\")'>DFA Minimization Demo</a></li>";
-          output.innerHTML += "<li>> <a href='#' onclick='alert(\"Regular Expression to DFA Conversion Demo\")'>Regular Expression to DFA Conversion Demo</a></li>";
-          output.innerHTML += "<li>> <a href='#' onclick='alert(\"Packit_Fiend\")'>Packit_Fiend</a></li>";
+          output.innerHTML += "<li>> <a href='#' onclick='showProjectInfo(1)'>Ubuntu Linux Packet Sniffing & Spoofing</a></li>";
+          output.innerHTML += "<li>> <a href='#' onclick='showProjectInfo(2)'>LAN Network Home Lab</a></li>";
+          output.innerHTML += "<li>> <a href='#' onclick='showProjectInfo(3)'>VPN Configuration for Secure Remote Access</a></li>";
+          output.innerHTML += "<li>> <a href='#' onclick='showProjectInfo(4)'>DFA Minimization Demo</a></li>";
+          output.innerHTML += "<li>> <a href='#' onclick='showProjectInfo(5)'>Regular Expression to DFA Conversion Demo</a></li>";
+          output.innerHTML += "<li>> <a href='#' onclick='showProjectInfo(6)'>Packit_Fiend</a></li>";
           output.innerHTML += "</ul>";
           break;
 
@@ -183,13 +183,50 @@
       output.scrollTop = output.scrollHeight; // Auto-scroll to bottom
     }
 
-    // Event listener for pressing 'Enter' on the terminal input
-    document.getElementById("commandInput").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        const command = e.target.value;
-        handleCommand(command);
+    // Function to show project description and link when clicked
+    function showProjectInfo(projectId) {
+      const output = document.getElementById("output");
+
+      switch (projectId) {
+        case 1:
+          output.innerHTML += "<p>> Ubuntu Linux Packet Sniffing & Spoofing</p>";
+          output.innerHTML += "<p>Description: Analyzing and manipulating network packets using Linux tools.</p>";
+          output.innerHTML += "<p><a href='https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf' target='_blank'>Link to Report</a></p>";
+          break;
+
+        case 2:
+          output.innerHTML += "<p>> LAN Network Home Lab</p>";
+          output.innerHTML += "<p>Description: A local area network setup for hands-on networking practice.</p>";
+          output.innerHTML += "<p><a href='https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf' target='_blank'>Link to Report</a></p>";
+          break;
+
+        case 3:
+          output.innerHTML += "<p>> VPN Configuration for Secure Remote Access</p>";
+          output.innerHTML += "<p>Description: Setting up a secure VPN for remote connectivity.</p>";
+          output.innerHTML += "<p><a href='https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf' target='_blank'>Link to Report</a></p>";
+          break;
+
+        case 4:
+          output.innerHTML += "<p>> DFA Minimization Demo</p>";
+          output.innerHTML += "<p>Description: Demonstrating the process of DFA minimization in automata theory.</p>";
+          output.innerHTML += "<p><a href='https://youtu.be/rdFdbVxSlLg' target='_blank'>Link to Demo</a></p>";
+          break;
+
+        case 5:
+          output.innerHTML += "<p>> Regular Expression to DFA Conversion Demo</p>";
+          output.innerHTML += "<p>Description: Converting a regular expression into a deterministic finite automaton.</p>";
+          output.innerHTML += "<p><a href='https://youtu.be/P9a6l90iats' target='_blank'>Link to Demo</a></p>";
+          break;
+
+        case 6:
+          output.innerHTML += "<p>> Packit_Fiend</p>";
+          output.innerHTML += "<p>Description: A pen-testing tool built with Python, utilizing Scapy and socket libraries.</p>";
+          output.innerHTML += "<p><a href='https://github.com/Ty-byte345/Packit_Fiend' target='_blank'>GitHub</a></p>";
+          break;
       }
-    });
-  </script>
-</body>
-</html>
+
+      output.scrollTop = output.scrollHeight; // Auto-scroll to bottom
+    }
+
+    // Event listener for pressing 'Enter' on the terminal input
+    document.getElementBy

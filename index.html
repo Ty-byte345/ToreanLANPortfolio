@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Torean's Project Portfolio</title>
+  <title>Torean's Interactive Terminal</title>
+  <!-- jQuery Terminal CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css">
   <style>
     body {
       background-color: black;
@@ -12,15 +14,29 @@
       text-align: center;
       padding: 20px;
       margin: 0;
+      overflow: hidden;
     }
-    /* Canvas styles for Matrix background */
+    /* Canvas Background (Matrix Effect) */
     canvas {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: -1;
     }
-    .terminal {
+    /* Title (Always on Top) */
+    h1 {
+      position: relative;
+      z-index: 2;
+      font-size: 2em;
+      text-shadow: 0px 0px 10px lime;
+      margin-bottom: 10px;
+    }
+    /* Terminal Styling */
+    #terminal {
+      position: relative;
+      z-index: 1;
       border: 2px solid green;
       padding: 20px;
       display: inline-block;
@@ -28,6 +44,12 @@
       width: 80%;
       max-width: 800px;
       margin-top: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px green;
+      min-height: 400px;
+      overflow-y: auto;
     }
     a {
       color: lime;
@@ -37,85 +59,35 @@
     a:hover {
       text-decoration: underline;
     }
-    .blink {
-      animation: blink-animation 1s steps(2, start) infinite;
-    }
-    @keyframes blink-animation {
-      50% { opacity: 0; }
-    }
-    .project-content {
-      display: none;
-      margin-top: 20px;
-      padding: 10px;
-      border-top: 1px dashed green;
-    }
-    .project-image {
-      width: 100%;
-      max-width: 400px;
-      margin-top: 10px;
-      border: 1px solid green;
-    }
-  </style>
-  <script>
-    function toggleProject(id) {
-      var content = document.getElementById(id);
-      if (content.style.display === "none") {
-          content.style.display = "block";
-      } else {
-          content.style.display = "none";
+    /* Responsive Styling */
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      #terminal {
+        width: 95%;
+        padding: 15px;
       }
     }
-  </script>
+  </style>
 </head>
 <body>
-  <!-- Canvas for Matrix effect -->
+  <!-- Canvas for Matrix Effect -->
   <canvas id="matrix"></canvas>
-  
+
   <h1>Welcome to Torean's LAN Server</h1>
-  <div class="terminal">
-      <p>> Hello, visitor! This is my project portfolio.</p>
-      <p>> Here are some of my projects:</p>
-      <ul>
-          <li>> <a onclick="toggleProject('project1')">Ubuntu Linux Packet Sniffing & Spoofing</a></li>
-          <div id="project1" class="project-content">
-              <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf">Link To Report</a></li>
-              <p>Description: Analyzing and manipulating network packets using Linux tools.</p>
-          </div>
-          <li>> <a onclick="toggleProject('project2')">LAN Network Home Lab</a></li>
-          <div id="project2" class="project-content">
-              <p>Description: A local area network setup for hands-on networking practice.</p>
-              <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf">Link To Report</a></li>
-          </div>
-          <li>> <a onclick="toggleProject('project3')">VPN Configuration for Secure Remote Access</a></li>
-          <div id="project3" class="project-content">
-              <li>><a href="https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf">Link To Report</a></li>
-              <p>Description: Setting up a secure VPN for remote connectivity.</p>
-          </div>
-          <li>> <a onclick="toggleProject('project4')">DFA Minimization Demo</a></li>
-          <div id="project4" class="project-content">
-              <li>><a href="https://youtu.be/rdFdbVxSlLg">Link To Demo</a></li>
-              <p>Description: Demonstrating the process of DFA minimization in automata theory.</p>
-          </div>
-          <li>> <a onclick="toggleProject('project5')">Regular Expression to DFA Conversion Demo</a></li>
-          <div id="project5" class="project-content">
-              <li>><a href="https://youtu.be/P9a6l90iats">Link To Demo</a></li>
-              <p>Description: Converting a regular expression into a deterministic finite automaton.</p>
-          </div>
-          <li>> <a onclick="toggleProject('project6')">Packit_Fiend</a></li>
-          <div id="project6" class="project-content">
-              <li>><a href="https://github.com/Ty-byte345/Packit_Fiend">GitHub</a></li>
-              <p>Description: The pen-testing tool is designed with Python, leveraging libraries like scapy, socket, and platform, ensuring flexibility and powerful scanning capabilities.</p>
-          </div>
-      </ul>
-      <p>> More coming soon...<span class="blink">_</span></p>
-  </div>
-  
+
+  <!-- Terminal Container -->
+  <div id="terminal"></div>
+
+  <!-- jQuery and jQuery Terminal JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
   <!-- Matrix Rain JavaScript -->
   <script>
     var canvas = document.getElementById("matrix");
     var ctx = canvas.getContext("2d");
 
-    // Resize canvas to full screen
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -123,30 +95,24 @@
     resizeCanvas();
     window.onresize = resizeCanvas;
 
-    // Characters for the Matrix effect
-    var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
+    var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
     letters = letters.split("");
 
     var fontSize = 16;
-    var columns = canvas.width / fontSize; // number of columns for the rain
-    var drops = [];
-    for (var x = 0; x < columns; x++) {
-      drops[x] = 1; // starting y-coordinate for each drop
-    }
+    var columns = Math.floor(canvas.width / fontSize);
+    var drops = Array(columns).fill(1);
 
     function draw() {
-      // Translucent background to create trail effect
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "#0F0"; // Green text for Matrix effect
+      ctx.fillStyle = "#0F0";
       ctx.font = fontSize + "px monospace";
 
       for (var i = 0; i < drops.length; i++) {
         var text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Reset drop randomly when it reaches the bottom
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
@@ -154,8 +120,41 @@
       }
     }
 
-    // Draw the effect every 33 milliseconds
     setInterval(draw, 33);
+  </script>
+  <!-- Terminal Initialization and Command Handling -->
+  <script>
+    $(document).ready(function() {
+      const commands = {
+        help: function() {
+          this.echo("Available commands:\nhelp - Show available commands\nprojects - Show a list of projects\nabout - Show information about me\ncontact - Show contact information");
+        },
+        projects: function() {
+          this.echo("Projects:\n\
+1. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf]Ubuntu Linux Packet Sniffing & Spoofing] - Technologies: Wireshark, Scapy. Challenges: Network traffic analysis.\n\
+2. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf]LAN Network Home Lab] - Technologies: Cisco Packet Tracer. Challenges: Network topology design.\n\
+3. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf]VPN Configuration for Secure Remote Access] - Technologies: OpenVPN. Challenges: Secure remote connectivity.\n\
+4. [[!;;;;https://youtu.be/rdFdbVxSlLg]DFA Minimization Demo] - Demonstration of DFA minimization techniques.\n\
+5. [[!;;;;https://youtu.be/P9a6l90iats]Regular Expression to DFA Conversion Demo] - Conversion of regular expressions to DFA.\n\
+6. [[!;;;;https://github.com/Ty-byte345/Packit_Fiend]Packit_Fiend] - Network packet crafting tool.");
+        },
+        about: function() {
+          this.echo("I am Torean White, a Computer Science student with a passion for networking, cybersecurity, and programming.");
+        },
+        contact: function() {
+          this.echo("Contact Information:\nEmail: torean@example.com\nLinkedIn: https://www.linkedin.com/in/torean");
+        }
+      };
+
+      $('#terminal').terminal(commands, {
+        greetings: "Welcome to Torean's interactive terminal. Type 'help' for commands.",
+        prompt: '> ',
+        name: 'torean_terminal',
+        height: 400,
+        width: '100%',
+        completion: true
+      });
+    });
   </script>
 </body>
 </html>

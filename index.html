@@ -147,7 +147,9 @@ help - Show available commands\n\
 projects - Show a list of projects\n\
 about - Show information about me\n\
 contact - Show contact information\n\
-fortune - Receive a random fortune message.");
+fortune - Receive a random fortune message\n\
+whoami - Show your identity\n\
+sudo - run root privileges  ");
             },
             projects: function() {
                 this.echo("Projects:\n\
@@ -168,7 +170,13 @@ fortune - Receive a random fortune message.");
                 const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
                 this.echo("💡 Fortune: " + randomFortune);
             }
-          
+             whoami: function() {
+                   this.echo("visitor@ToreanLAN:~$ You are an anonymous user exploring Torean's terminal.");
+            }
+            sudo: function() {
+                 this.echo("Nice try, but you don’t have root privileges here. 😉");
+            }
+            
          };
 
         // Initialize terminal

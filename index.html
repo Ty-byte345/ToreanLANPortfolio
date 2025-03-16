@@ -144,14 +144,11 @@
         contact: function() {
           this.echo("Contact Information:\nEmail: torean@example.com\nLinkedIn: https://www.linkedin.com/in/torean");
         }
-      
       };
 
       $('#terminal').terminal(commands, {
         greetings: "Welcome to Torean's interactive terminal. Type 'help' for commands.",
         prompt: '> ',
-        onCommandNotFound: function(command) {
-          this.echo(`Command '${command}' not found. Type 'help' for a list of available commands.`);
         name: 'torean_terminal',
         height: 400,
         width: '100%',

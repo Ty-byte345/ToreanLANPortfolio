@@ -127,16 +127,7 @@
     $(document).ready(function() {
       const commands = {
         help: function() {
-          this.echo("Available commands:\n\
-help - Show available commands\n\
-projects - Show a list of projects\n\
-about - Show information about me\n\
-contact - Show contact information\n\
-clear - Clear the terminal screen\n\
-fortune - Receive a random piece of wisdom\n\
-matrix - Experience the Matrix effect\n\
-theme - Change terminal theme\n\
-time - Display the current time");
+          this.echo("Available commands:\nhelp - Show available commands\nprojects - Show a list of projects\nabout - Show information about me\ncontact - Show contact information\nclear - Clear the terminal screen\nfortune - Receive a random piece of wisdom\nmatrix - Experience the Matrix effect");
         },
         projects: function() {
           this.echo("Projects:\n\
@@ -147,4 +138,21 @@ time - Display the current time");
 5. [[!;;;;https://youtu.be/P9a6l90iats]Regular Expression to DFA Conversion Demo] - Conversion of regular expressions to DFA.\n\
 6. [[!;;;;https://github.com/Ty-byte345/Packit_Fiend]Packit_Fiend] - Network packet crafting tool.");
         },
-        about 
+        about: function() {
+          this.echo("I am Torean White, a Computer Science student with a passion for networking, cybersecurity, and programming.");
+        },
+        contact: function() {
+          this.echo("Contact Information:\nEmail: torean@example.com\nLinkedIn: https://www.linkedin.com/in/torean");
+        },
+        clear: function() {
+          this.clear();
+        },
+        fortune: function() {
+          const fortunes = [
+            "The early bird gets the worm, but the second mouse gets the cheese.",
+            "To be sure of hitting the target, shoot first, and call whatever you hit the target.",
+            "If at first you don't succeed, skydiving is not for you.",
+            "Change is inevitable, except from a vending machine.",
+            "A clear conscience is usually the sign of a bad memory."
+          ];
+          const random 

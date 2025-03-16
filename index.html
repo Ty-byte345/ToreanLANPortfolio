@@ -127,7 +127,7 @@
     $(document).ready(function() {
       const commands = {
         help: function() {
-          this.echo("Available commands:\nhelp - Show available commands\nprojects - Show a list of projects\nabout - Show information about me\ncontact - Show contact information");
+          this.echo("Available commands:\nhelp - Show available commands\nprojects - Show a list of projects\nabout - Show information about me\ncontact - Show contact information\nfortune - random wisdom\nclear - clear terminal ");
         },
         projects: function() {
           this.echo("Projects:\n\
@@ -144,6 +144,19 @@
         contact: function() {
           this.echo("Contact Information:\nEmail: torean@example.com\nLinkedIn: https://www.linkedin.com/in/torean");
         }
+                },
+        clear: function() {
+          this.clear();
+        },
+        fortune: function() {
+          const fortunes = [
+            "The early bird gets the worm, but the second mouse gets the cheese.",
+            "To be sure of hitting the target, shoot first, and call whatever you hit the target.",
+            "If at first you don't succeed, skydiving is not for you.",
+            "Change is inevitable, except from a vending machine.",
+            "A clear conscience is usually the sign of a bad memory."
+          ];
+          const random
       };
 
       $('#terminal').terminal(commands, {

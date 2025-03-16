@@ -123,38 +123,63 @@
     setInterval(draw, 33);
   </script>
   <!-- Terminal Initialization and Command Handling -->
-  <script>
+<script>
     $(document).ready(function() {
-      const commands = {
-        help: function() {
-          this.echo("Available commands:\nhelp - Show available commands\nprojects - Show a list of projects\nabout - Show information about me\ncontact - Show contact information");
-        },
-        projects: function() {
-          this.echo("Projects:\n\
-1. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf]Ubuntu Linux Packet Sniffing & Spoofing] - Technologies: Wireshark, Scapy. Challenges: Network traffic analysis.\n\
-2. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf]LAN Network Home Lab] - Technologies: Cisco Packet Tracer. Challenges: Network topology design.\n\
-3. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf]VPN Configuration for Secure Remote Access] - Technologies: OpenVPN. Challenges: Secure remote connectivity.\n\
-4. [[!;;;;https://youtu.be/rdFdbVxSlLg]DFA Minimization Demo] - Demonstration of DFA minimization techniques.\n\
-5. [[!;;;;https://youtu.be/P9a6l90iats]Regular Expression to DFA Conversion Demo] - Conversion of regular expressions to DFA.\n\
-6. [[!;;;;https://github.com/Ty-byte345/Packit_Fiend]Packit_Fiend] - Network packet crafting tool.");
-        },
-        about: function() {
-          this.echo("I am Torean White, a Computer Science student with a passion for networking, cybersecurity, and programming.");
-        },
-        contact: function() {
-          this.echo("Contact Information:\nEmail: toreanwhite@icloud.com\nLinkedIn:http://linkedin.com/in/torean-white-055628195");
-        }
-      };
+        // Array of random fortune messages
+        const fortunes = [
+            "Your future is as bright as your screen!",
+            "Opportunities will present themselves soon.",
+            "A new adventure is just around the corner.",
+            "Beware of syntax errors in unexpected places.",
+            "Success is 99% preparation and 1% execution.",
+            "The network is stable… for now.",
+            "A surprise connection will lead to a great opportunity.",
+            "Your knowledge will soon help someone in need.",
+            "Security first, always. A wise choice awaits.",
+            "You will debug a tough problem successfully today."
+        ];
 
-      $('#terminal').terminal(commands, {
-        greetings: "Welcome to Torean's interactive terminal. Type 'help' for commands.",
-        prompt: '> ',
-        name: 'torean_terminal',
-        height: 400,
-        width: '100%',
-        completion: true
-      });
+        // Define terminal commands
+        const commands = {
+            help: function() {
+                this.echo("Available commands:\n\
+help - Show available commands\n\
+projects - Show a list of projects\n\
+about - Show information about me\n\
+contact - Show contact information\n\
+fortune - Receive a random fortune message.");
+            },
+            projects: function() {
+                this.echo("Projects:\n\
+1. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf]Ubuntu Linux Packet Sniffing & Spoofing]\n\
+2. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf]LAN Network Home Lab]\n\
+3. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf]VPN Configuration for Secure Remote Access]\n\
+4. [[!;;;;https://youtu.be/rdFdbVxSlLg]DFA Minimization Demo]\n\
+5. [[!;;;;https://youtu.be/P9a6l90iats]Regular Expression to DFA Conversion Demo]\n\
+6. [[!;;;;https://github.com/Ty-byte345/Packit_Fiend]Packit_Fiend]");
+            },
+            about: function() {
+                this.echo("I am Torean White, a Computer Science student with a passion for networking, cybersecurity, and programming.");
+            },
+            contact: function() {
+                this.echo("Contact Information:\nEmail: toreanwhite@icloud.com\nLinkedIn: http://linkedin.com/in/torean-white-055628195");
+            },
+            fortune: function() {
+                const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+                this.echo("💡 Fortune: " + randomFortune);
+            }
+        };
+
+        // Initialize terminal
+        $('#terminal').terminal(commands, {
+            greetings: "Welcome to Torean's interactive terminal. Type 'help' for commands.",
+            prompt: '> ',
+            name: 'torean_terminal',
+            height: 400,
+            width: '100%',
+            completion: Object.keys(commands) // Enables command auto-completion
+        });
     });
-  </script>
+</script>
 </body>
 </html>

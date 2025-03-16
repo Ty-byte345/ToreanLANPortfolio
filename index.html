@@ -51,14 +51,12 @@
       min-height: 400px;
       overflow-y: auto;
     }
-    /* Force links to be lime green */
-    a, .terminal a {
-      color: #32CD32 !important; /* Lime Green */
+    a {
+      color: lime;
       text-decoration: none;
       cursor: pointer;
     }
-    a:hover, .terminal a:hover {
-      color: #32CD32 !important; /* Lime Green */
+    a:hover {
       text-decoration: underline;
     }
     /* Responsive Styling */
@@ -77,7 +75,7 @@
   <!-- Canvas for Matrix Effect -->
   <canvas id="matrix"></canvas>
 
-  <h1>Welcome to Torean's SSH Terminal</h1>
+  <h1>Welcome to Torean's SSH Terminal </h1>
 
   <!-- Terminal Container -->
   <div id="terminal"></div>
@@ -125,7 +123,7 @@
     setInterval(draw, 33);
   </script>
   <!-- Terminal Initialization and Command Handling -->
-  <script>
+<script>
     $(document).ready(function() {
         // Array of random fortune messages
         const fortunes = [
@@ -153,24 +151,25 @@ fortune - Receive a random fortune message.");
             },
             projects: function() {
                 this.echo("Projects:\n\
-1. [[!;;#32CD32;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf]Ubuntu Linux Packet Sniffing & Spoofing]\n\
-2. [[!;;#32CD32;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf]LAN Network Home Lab]\n\
-3. [[!;;#32CD32;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf]VPN Configuration for Secure Remote Access]\n\
-4. [[!;;#32CD32;https://youtu.be/rdFdbVxSlLg]DFA Minimization Demo]\n\
-5. [[!;;#32CD32;https://youtu.be/P9a6l90iats]Regular Expression to DFA Conversion Demo]\n\
-6. [[!;;#32CD32;https://github.com/Ty-byte345/Packit_Fiend]Packit_Fiend]");
+1. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/CSCI4423HW2.pdf]Ubuntu Linux Packet Sniffing & Spoofing]\n\
+2. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/HomeLab_TW%20report.pdf]LAN Network Home Lab]\n\
+3. [[!;;;;https://github.com/Ty-byte345/ToreanLANPortfolio/blob/main/VPN%20Configuration_TW.pdf]VPN Configuration for Secure Remote Access]\n\
+4. [[!;;;;https://youtu.be/rdFdbVxSlLg]DFA Minimization Demo]\n\
+5. [[!;;;;https://youtu.be/P9a6l90iats]Regular Expression to DFA Conversion Demo]\n\
+6. [[!;;;;https://github.com/Ty-byte345/Packit_Fiend]Packit_Fiend]");
             },
             about: function() {
-                this.echo("I am Torean White, an IT Professional with a passion for networking, cybersecurity, and programming.");
+                this.echo("I am Torean White, a IT Professional with a passion for networking, cybersecurity, and programming.");
             },
             contact: function() {
-                this.echo("Contact Information:\nEmail: toreanwhite@icloud.com\nLinkedIn: [[!;;#32CD32;http://linkedin.com/in/torean-white-055628195]LinkedIn Profile]");
+                this.echo("Contact Information:\nEmail: toreanwhite@icloud.com\nLinkedIn: http://linkedin.com/in/torean-white-055628195");
             },
             fortune: function() {
                 const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
                 this.echo("💡 Fortune: " + randomFortune);
             }
-        };
+          
+         };
 
         // Initialize terminal
         $('#terminal').terminal(commands, {
@@ -182,6 +181,6 @@ fortune - Receive a random fortune message.");
             completion: Object.keys(commands) // Enables command auto-completion
         });
     });
-  </script>
+</script>
 </body>
 </html>
